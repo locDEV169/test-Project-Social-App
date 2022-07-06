@@ -1,0 +1,188 @@
+.home-page h1 {
+    margin: 50px 0px 30px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: left;
+    font: normal normal bold 35px/47px Segoe UI;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+    text-transform: uppercase;
+}
+.action {
+    display: flex;
+    justify-content: space-evenly;
+}
+.action button {
+    height: 50px;
+    width: 107px;
+    text-transform: capitalize;
+    color: white;
+    margin-right: 15px;
+    background: #f1b44c 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 10px;
+    border: 0px;
+    opacity: 1;
+    font-size: 15px;
+}
+.search-form {
+    width: 395px;
+    height: 50px;
+    /* UI Properties */
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 10px;
+    opacity: 1;
+}
+.search {
+    color: #bdbdbd;
+    width: 395px;
+    height: 50px;
+    /* UI Properties */
+    /* background: #ffffff 0% 0% no-repeat padding-box; */
+    /* box-shadow: 0px 3px 6px #00000029; */
+    border-radius: 10px;
+    border: 0px;
+    opacity: 1;
+}
+.search:focus {
+    outline: none;
+    border: 0px;
+}
+.search::content {
+    outline: none;
+    border: 0px;
+}
+.search:focus-visible {
+    outline: none;
+    border: 0px;
+}
+.MuiDialogActions-spacing button {
+    color: #ffffff;
+}
+#pop-up {
+    /* background: #ffffff 0% 0% no-repeat padding-box; */
+    box-shadow: 0px 3px 6px #00000029;
+    border: 1px solid #d2cbcb;
+    border-radius: 10px;
+}
+#alert-dialog-title {
+    width: 514px;
+    /* height: 379px; */
+}
+#alert-dialog-title h2 {
+    text-align: left;
+    font: normal normal bold 20px/27px Segoe UI;
+    margin: 0 auto;
+    margin-top: 20px;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.form-add {
+    max-width: 100%;
+    /* border-bottom: 1px solid #d9d9d9; */
+}
+.form-add input {
+    width: 322px !important;
+    height: 35px;
+    max-width: 100%;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+}
+.upload-image {
+    border: 0px !important;
+}
+.img-title {
+    display: flex;
+}
+.img-title-image {
+    width: 20px;
+    height: 20px;
+    background-image: url(../../image/upload-solid-blue.svg);
+    background-size: 100% 100%;
+}
+.img-title-image-error {
+    width: 20px;
+    height: 20px;
+    background-image: url(../../image/upload-solid.svg);
+    background-size: 100% 100%;
+}
+.error {
+    color: #f3115e;
+}
+#nameError {
+    border: 1px solid #f3115e;
+}
+#descriptionError {
+    border: 1px solid #f3115e;
+}
+.add-dialog-lines {
+    width: 100%;
+    height: 0px;
+    border: 1px solid #d9d9d9;
+}
+.fontSize14 {
+    font-size: 14px;
+}
+.fontSize16 {
+    font-size: 16px;
+}
+.MuiDialog-paperWidthSm {
+    max-width: 514px !important;
+}
+.search-box {
+    display: flex;
+    justify-content: space-between;
+    width: 395px;
+    height: 50px;
+    margin-left: 10px;
+    /* margin-right: 35px; */
+    box-shadow: 0px 3px 6px rgb(0 0 0 / 16%);
+    border-radius: 0px;
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 10px;
+}
+.search-button {
+    width: 20px !important;
+    padding-right: 15px;
+    border: none;
+    outline: none;
+    background-color: #ffffff;
+    cursor: pointer;
+    background: white !important;
+    box-shadow: 0px 0px 0px #00000029 !important;
+}
+.search-icon {
+    margin: 15px 20px 15px auto;
+}
+.search-input {
+    /* width: 355px; */
+    display: flex;
+    align-items: center;
+    min-height: 20px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    padding: 0px 15px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #bdbdbd;
+}
+.displayFlex {
+    display: flex;
+    justify-content: space-between;
+}
+.btn-form-add {
+    padding-right: 30px !important;
+    padding-bottom: 20px;
+}

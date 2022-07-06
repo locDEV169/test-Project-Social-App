@@ -1,0 +1,11 @@
+.form {
+    margin: 30px 25px !important;
+    width: 50%;
+}
+.form label{
+    width: 100px;
+}
+.img-preview{
+    width: 200px;
+    height: 200px;
+}

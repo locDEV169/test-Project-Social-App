@@ -1,0 +1,151 @@
+.home-page {
+    display: flex;
+    max-width: 1366px;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.ant-input-affix-wrapper {
+    height: 40px;
+}
+.home-page .item {
+    margin: 30px 100px 0px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.detail-item {
+    display: flex;
+    width: 370px;
+    height: 364px;
+    margin-bottom: 28px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 10px;
+    opacity: 1;
+}
+/* .detail-item:hover {
+    border: 1px solid rgba(1, 48, 255, 0.522);
+    box-shadow: 0 3px 10px rgba(255, 1, 230, 0.522);
+} */
+.detail-item .poster {
+    width: 310px;
+    height: 180px;
+}
+.info {
+    /* margin-bottom: 15px; */
+    display: flex;
+    justify-content: space-between;
+}
+#right {
+    display: none;
+}
+.detail-item:hover #right {
+    display: inline-block;
+}
+.avatar {
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    margin-right: 15px;
+    border: 1px solid #707070;
+}
+.left {
+    display: flex;
+    color: #000000;
+}
+.card-home-day {
+    color: #5b7083;
+}
+.card-home-info-name {
+    font-size: 18px;
+    color: #000000;
+    height: 24px;
+    text-align: left;
+    font: normal normal 600 18px/24px Segoe UI;
+    letter-spacing: 0px;
+    color: #000000;
+}
+.center {
+    margin: 15px 0px;
+    color: black;
+    height: 60px;
+    text-align: left;
+    font: normal normal normal 15px/20px Segoe UI;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 20px;
+    -webkit-line-clamp: 3;
+    height: 60px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+.pop-up-delete {
+    box-shadow: 0px 3px 6px #00000029;
+    border: 1px solid #d2cbcb;
+    border-radius: 10px;
+}
+.delete-dialog-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 8px;
+    /* border-bottom: 1px solid #d9d9d9; */
+}
+.delete-dialog-center-text {
+    width: 238px;
+    height: 42px;
+    margin: 15px 0px;
+    text-align: center;
+    font: normal normal normal 16px/21px Segoe UI;
+    letter-spacing: 0px;
+    color: #000000;
+}
+.btn-dialog {
+    background: #064ebc 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 10px;
+    width: 76px;
+    height: 43px;
+}
+.edit-dialog-lines {
+    /* border: 1px solid #d9d9d9; */
+    height: 1px;
+    background-color: #d9d9d9;
+    border: none;
+}
+.delete-dialog-lines {
+    width: 425px;
+    height: 0px;
+    border: 1px solid #d9d9d9;
+}
+/* fix css material */
+/* .MuiDialogActions-root {
+    flex: 0 0 auto;
+    display: flex;
+    padding: 8px;
+    padding-right: 62px !important;
+    align-items: center;
+    justify-content: flex-end;
+} */
+.btn-form-delete {
+    padding-right: 30px !important;
+    padding-bottom: 20px;
+}
+.form-edit {
+    max-width: 100%;
+    /* border-bottom: 1px solid #d9d9d9; */
+}
+.form-edit input {
+    width: 322px !important;
+    height: 35px;
+    max-width: 100%;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+}
+.outline {
+    outline: none;
+}

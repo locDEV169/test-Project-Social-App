@@ -1,0 +1,181 @@
+.detail-card h1 {
+    /* UI Properties */
+    text-transform: uppercase;
+    /* margin-bottom: 40px; */
+}
+.card {
+    margin-top: 40px;
+}
+.avatar {
+    width: 50px;
+    height: 50px;
+    /* border: 1px solid #707070; */
+    opacity: 1;
+}
+.card-info {
+    display: flex;
+}
+.name {
+    text-align: left;
+    font-size: 18px;
+    font: normal normal 600 18px/24px Segoe UI;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+    height: 24px;
+}
+.create-day {
+    text-align: left;
+    font: normal normal normal 15px/20px Segoe UI;
+    letter-spacing: 0px;
+    color: #5b7083;
+    opacity: 1;
+}
+.description {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    /* width: 1160px; */
+    /* UI Properties */
+    text-align: left;
+    font: normal normal normal 15px/20px Segoe UI;
+    font-size: 15px;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+}
+
+.card-img {
+    display: flex;
+    justify-content: space-around;
+}
+.card-info-left {
+    display: flex;
+    color: #000000;
+    flex-direction: column;
+    margin-left: 5px;
+}
+.item-img {
+    width: 800px;
+    height: 350px;
+}
+.react {
+    display: flex;
+    margin: 30px 0px 20px 25px;
+    opacity: 1;
+}
+.react-tym {
+    display: flex;
+    margin-right: 15px;
+    align-items: center;
+}
+.react-cmt {
+    display: flex;
+    align-items: center;
+}
+.lines {
+    margin: 10px 0 10px;
+    /* border: 1px solid #d9d9d9; */
+    height: 1px;
+    background-color: #d9d9d9;
+}
+.list-cmt {
+    /* margin: 20px 0 20px; */
+}
+.cmt-day {
+    margin-bottom: 5px;
+    height: 20px;
+    text-align: left;
+    font: normal normal normal 15px/20px Segoe UI;
+    letter-spacing: 0px;
+    color: #5b7083;
+    opacity: 1;
+}
+.cmt-text {
+    height: 40px;
+    text-align: left;
+    font: normal normal normal 15px/20px Segoe UI;
+    letter-spacing: 0px;
+    font-size: 15px;
+    color: #000000;
+    opacity: 1;
+}
+.post-cmt {
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-around;
+}
+.title {
+    margin-bottom: 15px;
+    height: 24px;
+    text-align: left;
+    font: normal normal 600 18px/24px Segoe UI;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+}
+#story {
+    width: 800px;
+    height: 150px !important;
+    /* margin-bottom: 160px; */
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+}
+.btn-post {
+    width: 76px;
+    height: 43px;
+    text-transform: capitalize !important;
+    font-size: 13px !important;
+    color: #ffffff !important;
+    background: #064ebc 0% 0% no-repeat padding-box;
+    font: normal normal bold 13px/17px Segoe UI;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 10px;
+    opacity: 1;
+}
+.footer-title {
+    margin-bottom: 15px;
+    height: 24px;
+    text-align: left;
+    font: normal normal 600 18px/24px Segoe UI;
+    letter-spacing: 0px;
+    color: #000000;
+    opacity: 1;
+}
+#form-search-cmt {
+    width: 800px;
+    height: 150px !important;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
+.input-cmt {
+    width: 100%;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.input-base-comt {
+    width: 100%;
+}
+.input-add-post {
+    display: flex;
+    flex-direction: column-reverse;
+    margin: 87px 20px 20px;
+}
+.btn-add-post {
+    display: flex;
+    width: 76px;
+    height: 43px;
+    background: #064ebc 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 10px;
+    color: #ffffff !important;
+    text-transform: capitalize !important;
+    font-size: 13px !important;
+}
+.cmt-item {
+    margin-top: 15px;
+}
