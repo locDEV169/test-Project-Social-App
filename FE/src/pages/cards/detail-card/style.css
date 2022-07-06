@@ -57,6 +57,7 @@
 .item-img {
     width: 800px;
     height: 350px;
+    object-fit: cover;
 }
 .react {
     display: flex;

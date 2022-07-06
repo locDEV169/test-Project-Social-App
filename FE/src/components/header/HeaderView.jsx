@@ -25,13 +25,9 @@ import { SearchCard } from "../../actions/search";
 
 function HeaderView(props) {
     const [state, setState] = useState({ card: [] });
-    const [openAdd, setOpenAdd] = useState(false);
     const dispatch = useDispatch();
-    const card = useSelector((state) => state.cardReducer.list);
-    const searchValue = useSelector((state) => state.cardReducer.search);
     const valueRevert = useSelector((state) => state.cardReducer.idRevert);
     const [openDiaLog, setOpenDiaLog] = useState(false);
-    const [idItem, setIdItem] = useState("");
     const [cardName, setCardName] = useState("");
     const [cardAvatar, setCardAvatar] = useState("");
     const [cardImage, setCardImage] = useState("");
@@ -48,6 +44,9 @@ function HeaderView(props) {
         setCardDescription("");
         setCardAvatar("");
         setCardImage("");
+        setNameError(false);
+        setDescriptionError(false);
+        setAvatarError(false);
     };
 
     const handleChangeName = (value) => {
@@ -61,16 +60,26 @@ function HeaderView(props) {
     };
 
     const UploadfileAvatar = async (file) => {
+        let check = true;
+        console.log(file.type);
         setAvatarType(file.type);
-        setCardAvatar(file.name);
         const formData = new FormData();
-        // setAvatarType(file.type);
         formData.append("avatar", file);
         if (file.type !== "image/jpeg" && file.type !== "image/png") {
+            check = false;
             setAvatarError(true);
             notification.error({
                 message: "file upload failed",
                 description: "file type upload is .jpg or .png",
+            });
+        } else {
+            setAvatarError(true);
+        }
+        if (!check) {
+            setAvatarError(true);
+            setCardAvatar("");
+            notification.error({
+                message: "file upload failed",
             });
         } else {
             await api
@@ -85,15 +94,23 @@ function HeaderView(props) {
     };
     // console.log(avatarType);
     const UploadfileImg = async (file) => {
+        let check = true;
         const formData = new FormData();
         formData.append("avatar", file);
         // setCardImage(file.name);
         if (file.type !== "image/jpeg" && file.type !== "image/png") {
+            check = false;
             setImgError(true);
             notification.error({
                 message: "file upload failed",
                 description: "file type upload is .jpg or .png",
             });
+        } else {
+            check = true;
+            setImgError(false);
+        }
+        if (!check) {
+            setImgError(true);
         } else {
             await api
                 .post("/upload", formData)
@@ -135,6 +152,13 @@ function HeaderView(props) {
             avatarType !== "image/jpeg" &&
             avatarType !== "image/png"
         ) {
+            check = false;
+            setAvatarError(true);
+        } else {
+            check = true;
+            setAvatarError(false);
+        }
+        if (cardAvatar === "") {
             check = false;
             setAvatarError(true);
         } else {
@@ -199,7 +223,7 @@ function HeaderView(props) {
         await api
             .put(`/card/revert/${valueRevert}`)
             .then((res) => {
-                message.success("Request Successful")
+                message.success("Request Successful");
                 getData();
             })
             .catch((err) => handleError(err));
@@ -283,9 +307,16 @@ function HeaderView(props) {
                                                 }
                                             ></div>
                                             <div
-                                                style={avatarError ? {
-                                                    marginLeft: "10px",
-                                                } : {marginLeft: "10px", color: "#F3115E"}}
+                                                style={
+                                                    avatarError
+                                                        ? {
+                                                              marginLeft:
+                                                                  "10px",
+                                                              color: "#F3115E",
+                                                          }
+                                                        : { marginLeft: "10px" }
+                                                }
+                                                className="img-name"
                                             >
                                                 {cardAvatar !== ""
                                                     ? cardAvatar
@@ -382,15 +413,16 @@ function HeaderView(props) {
                                     />
                                     <div className="img-title">
                                         <div className="img-title-image"></div>
-                                        <p
+                                        <div
                                             style={{
                                                 marginLeft: "10px",
                                             }}
+                                            className="img-name"
                                         >
                                             {cardImage !== ""
                                                 ? cardImage
                                                 : "Upload Image"}
-                                        </p>
+                                        </div>
                                     </div>
                                 </label>
                             </Stack>

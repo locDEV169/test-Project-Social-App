@@ -36,6 +36,7 @@ function DetailCard(props) {
             const response = await api.get(`card/${path.id}`);
             const { data: dataSource } = response;
             setCard(dataSource);
+            console.log(dataSource.status)
             dispatch(addReact(dataSource.heart));
             const responseCmt = await api.get(`/comment/card/${path.id}`);
             setComment(responseCmt.data);
@@ -47,7 +48,7 @@ function DetailCard(props) {
             });
         }
     }
-    console.log( "store", reactTym);
+    console.log( "store", card?.status);
 
     useEffect(() => {
         getDataList();
@@ -188,17 +189,3 @@ function DetailCard(props) {
 }
 
 export default DetailCard;
-function hardCodeCmt() {
-    return (
-        <div className="cmt-item">
-            <div className="cmt-day">22/04/2021 (day create)</div>
-            <div className="cmt-text">
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout.
-                The point of using Lorem Ipsum is that it has a more- or-less
-                normal distribution of letters, as opposed to using 'Content
-                here, content here', making it look like readable English.
-            </div>
-        </div>
-    );
-}

@@ -398,6 +398,7 @@ function HomePage(props) {
                                                 style={{
                                                     marginLeft: "10px",
                                                 }}
+                                                className="img-name"
                                             >
                                                 {cardAvatar !== ""
                                                     ? cardAvatar
@@ -496,15 +497,16 @@ function HomePage(props) {
                                     />
                                     <div className="img-title">
                                         <div className="img-title-image"></div>
-                                        <p
+                                        <div
                                             style={{
                                                 marginLeft: "10px",
                                             }}
+                                            className="img-name"
                                         >
                                             {cardImage !== ""
                                                 ? cardImage
                                                 : "Upload Image"}
-                                        </p>
+                                        </div>
                                     </div>
                                 </label>
                             </Stack>

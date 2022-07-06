@@ -187,3 +187,9 @@
     padding-right: 30px !important;
     padding-bottom: 20px;
 }
+.img-name{
+    width: 210px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
