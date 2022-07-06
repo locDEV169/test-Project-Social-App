@@ -28,6 +28,13 @@
     border: 1px solid rgba(1, 48, 255, 0.522);
     box-shadow: 0 3px 10px rgba(255, 1, 230, 0.522);
 } */
+.detail-item:hover .card-home-info-name {
+    width: 170px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .detail-item .poster {
     width: 310px;
     height: 180px;

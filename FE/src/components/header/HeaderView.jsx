@@ -86,8 +86,7 @@ function HeaderView(props) {
     // console.log(avatarType);
     const UploadfileImg = async (file) => {
         const formData = new FormData();
-        formData.append("file", "image");
-        formData.append("file", file, file.name);
+        formData.append("avatar", file);
         // setCardImage(file.name);
         if (file.type !== "image/jpeg" && file.type !== "image/png") {
             setImgError(true);
@@ -167,6 +166,7 @@ function HeaderView(props) {
                 .then((res) => {
                     // window.location.href = "/";
                     getData();
+                    dispatch(RevertCard(res.data.newCard._id));
                     handleClose();
                 })
                 .catch((err) => handleError(err));
@@ -283,9 +283,9 @@ function HeaderView(props) {
                                                 }
                                             ></div>
                                             <div
-                                                style={{
+                                                style={avatarError ? {
                                                     marginLeft: "10px",
-                                                }}
+                                                } : {marginLeft: "10px", color: "#F3115E"}}
                                             >
                                                 {cardAvatar !== ""
                                                     ? cardAvatar

@@ -181,6 +181,7 @@
 .displayFlex {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .btn-form-add {
     padding-right: 30px !important;

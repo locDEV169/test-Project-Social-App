@@ -58,7 +58,6 @@ function HomePage(props) {
             post.name?.includes(searchValue) ||
             post.description?.includes(searchValue)
     );
-    console.log(filterCard);
     // console.log(valueRevert);
     useEffect(() => {
         api.get(`card/${idItem}`).then((res) => {
@@ -72,7 +71,7 @@ function HomePage(props) {
 
     const covertDate = (day) => {
         const date = new Date(day);
-        const dateAt = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+        const dateAt = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
         return dateAt;
     };
 
@@ -92,6 +91,24 @@ function HomePage(props) {
 
     const handleCloseEdit = () => {
         setOpenDiaLogEdit(false);
+    };
+
+    const handleChangeName = (value) => {
+        if (value === " ") {
+            setNameError(true);
+        } else {
+            setCardName(value);
+            setNameError(false);
+        }
+    };
+
+    const handleChangeDescription = (value) => {
+        if (value === " ") {
+            setDescriptionError(true);
+        } else {
+            setCardDescription(value);
+            setDescriptionError(false);
+        }
     };
 
     const UploadfileAvatar = async (file) => {
@@ -121,8 +138,7 @@ function HomePage(props) {
     // console.log(avatarType);
     const UploadfileImg = async (file) => {
         const formData = new FormData();
-        formData.append("file", "image");
-        formData.append("file", file, file.name);
+        formData.append("avatar", file);
         // setCardImage(file.name);
         if (file.type !== "image/jpeg" && file.type !== "image/png") {
             setImgError(true);
@@ -413,11 +429,8 @@ function HomePage(props) {
                                     name="name"
                                     value={cardName !== "" ? cardName : ""}
                                     onChange={(e) =>
-                                        // setStateCard({
-                                        //     ...stateCard,
-                                        //     name: e.target.value,
-                                        // })
-                                        setCardName(e.target.value)
+                                        // setCardName(e.target.value)
+                                        handleChangeName(e.target.value)
                                     }
                                 />
                             </div>
@@ -452,11 +465,8 @@ function HomePage(props) {
                                             : ""
                                     }
                                     onChange={(e) =>
-                                        // setStateCard({
-                                        //     ...stateCard,
-                                        //     description: e.target.value,
-                                        // })
-                                        setCardDescription(e.target.value)
+                                        // setCardDescription(e.target.value)
+                                        handleChangeDescription(e.target.value)
                                     }
                                 />
                             </div>
@@ -534,220 +544,6 @@ function HomePage(props) {
 }
 
 export default HomePage;
-
-function popUpDialog(
-    openDiaLogEdit,
-    handleCloseEdit,
-    UploadfileAvatar,
-    cardAvatar,
-    cardName,
-    setCardName,
-    cardDescription,
-    setCardDescription,
-    UploadfileImg,
-    cardImage,
-    handleEdit,
-    nameError,
-    descriptionError,
-    avatarError
-) {
-    return (
-        <Dialog
-            open={openDiaLogEdit}
-            onClose={handleCloseEdit}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-            id="pop-up-edit"
-        >
-            <DialogTitle id="alert-dialog-title">Edit item</DialogTitle>
-            <DialogContent style={{ padding: "0px 45px" }}>
-                <form className="form-edit">
-                    <div className="input-avatar">
-                        <Stack
-                            direction="row"
-                            alignItems="center"
-                            spacing={5.5}
-                        >
-                            <div
-                                style={
-                                    avatarError
-                                        ? {
-                                              marginRight: "0px",
-                                              color: "#F3115E",
-                                              display: "flex",
-                                          }
-                                        : { marginRight: "0px" }
-                                }
-                                className="fontSize16 displayFlex"
-                            >
-                                {" "}
-                                Avatar <div className="error">*</div>:
-                            </div>
-                            <label htmlFor="contained-button-file">
-                                <input
-                                    name="avatar"
-                                    accept="image/png, image/jpeg"
-                                    id="contained-button-file"
-                                    type="file"
-                                    style={{ display: "none" }}
-                                    onChange={(e) => {
-                                        const file = e.target.files[0];
-                                        UploadfileAvatar(file);
-                                    }}
-                                />
-                                <div className="img-title">
-                                    {" "}
-                                    <div
-                                        className={
-                                            avatarError
-                                                ? "img-title-image-error"
-                                                : "img-title-image"
-                                        }
-                                    ></div>
-                                    <div
-                                        style={{
-                                            marginLeft: "10px",
-                                        }}
-                                    >
-                                        {cardAvatar !== ""
-                                            ? cardAvatar
-                                            : "Upload Image"}
-                                    </div>
-                                </div>
-                            </label>
-                        </Stack>
-                    </div>
-                    <br />
-                    <div className="input-name displayFlex">
-                        <label
-                            style={
-                                nameError
-                                    ? {
-                                          marginRight: "65px",
-                                          color: "#F3115E",
-                                      }
-                                    : { marginRight: "65px" }
-                            }
-                            className="fontSize16 displayFlex"
-                        >
-                            Name <div className="error">*</div>:
-                        </label>
-                        <input
-                            type="text"
-                            id={nameError ? "nameError" : "name"}
-                            name="name"
-                            value={cardName !== "" ? cardName : ""}
-                            onChange={(e) =>
-                                // setStateCard({
-                                //     ...stateCard,
-                                //     name: e.target.value,
-                                // })
-                                setCardName(e.target.value)
-                            }
-                        />
-                    </div>
-                    <br />
-                    <div className="input-description displayFlex">
-                        <label
-                            for="description"
-                            style={
-                                descriptionError
-                                    ? {
-                                          marginRight: "27px",
-                                          color: "#F3115E",
-                                      }
-                                    : { marginRight: "27px" }
-                            }
-                            className="fontSize16 displayFlex"
-                        >
-                            Description <div className="error">*</div>:
-                        </label>
-                        <input
-                            type="text-area"
-                            id={
-                                descriptionError
-                                    ? "descriptionError"
-                                    : "description"
-                            }
-                            name="description"
-                            value={
-                                cardDescription !== "" ? cardDescription : ""
-                            }
-                            onChange={(e) =>
-                                // setStateCard({
-                                //     ...stateCard,
-                                //     description: e.target.value,
-                                // })
-                                setCardDescription(e.target.value)
-                            }
-                        />
-                    </div>
-                    <br />
-                    <Stack direction="row" alignItems="center" spacing={2}>
-                        <div
-                            style={{ marginRight: "60px" }}
-                            className="fontSize16"
-                        >
-                            Image:
-                        </div>
-                        <label htmlFor="contained-button-file-image">
-                            <Input
-                                name="image"
-                                accept="image/png"
-                                id="contained-button-file-image"
-                                type="file"
-                                style={{ display: "none" }}
-                                onChange={(e) => {
-                                    const file = e.target.files[0];
-                                    UploadfileImg(file);
-                                }}
-                            />
-                            <div className="img-title">
-                                <div className="img-title-image"></div>
-                                <p
-                                    style={{
-                                        marginLeft: "10px",
-                                    }}
-                                >
-                                    {cardImage !== ""
-                                        ? cardImage
-                                        : "Upload Image"}
-                                </p>
-                            </div>
-                        </label>
-                    </Stack>
-                </form>
-                <hr className="edit-dialog-lines" />
-            </DialogContent>
-            <DialogActions>
-                <div className="btn-form-delete">
-                    <Button
-                        onClick={handleEdit}
-                        style={{
-                            backgroundColor: "#064EBC",
-                            marginRight: "20px",
-                        }}
-                        className="btn-dialog"
-                    >
-                        Edit
-                    </Button>
-                    <Button
-                        onClick={handleCloseEdit}
-                        autoFocus
-                        style={{
-                            backgroundColor: "#D9D9D9",
-                            width: "76px",
-                            height: "43px",
-                        }}
-                        className="btn-dialog"
-                    >
-                        Cancel
-                    </Button>
-                </div>
-            </DialogActions>
-        </Dialog>
-    );
-}
 
 function popUpDelete(openDiaLog, handleClose, handleDelete) {
     return (

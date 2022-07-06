@@ -4,7 +4,7 @@ const initialState = {
 };
 
 const reactReducer = (state = initialState, actionReact) => {
-    // console.log("reactReducer",actionReact.type)
+    console.log("reactReducer",actionReact.tym)
     switch (actionReact.type) {
         case "ADD_REACT": {
             // console.log(actionReact)

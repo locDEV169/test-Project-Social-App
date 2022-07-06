@@ -27,7 +27,7 @@ function DetailCard(props) {
 
     const covertDate = (day) => {
         const date = new Date(day);
-        const dateAt = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+        const dateAt = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
         return dateAt;
     };
 
@@ -47,7 +47,7 @@ function DetailCard(props) {
             });
         }
     }
-    console.log(commentStore, "store", comment);
+    console.log( "store", reactTym);
 
     useEffect(() => {
         getDataList();
@@ -61,7 +61,7 @@ function DetailCard(props) {
             })
             .then((res) => {
                 dispatch(customReact(reactTym));
-                // window.location.reload();
+                window.location.reload();
             })
             .catch((err) => handleError(err));
     };
