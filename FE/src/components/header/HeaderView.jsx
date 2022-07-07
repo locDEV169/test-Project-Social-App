@@ -47,6 +47,7 @@ function HeaderView(props) {
         setNameError(false);
         setDescriptionError(false);
         setAvatarError(false);
+        setImgError(false);
     };
 
     const handleChangeName = (value) => {
@@ -92,7 +93,7 @@ function HeaderView(props) {
                 .catch((err: ErrorType) => handleError(err));
         }
     };
-    // console.log(avatarType);
+    
     const UploadfileImg = async (file) => {
         let check = true;
         const formData = new FormData();
@@ -412,11 +413,11 @@ function HeaderView(props) {
                                         }}
                                     />
                                     <div className="img-title">
-                                        <div className="img-title-image"></div>
+                                        <div className={imgError ? "img-title-image-error" : "img-title-image"}></div>
                                         <div
-                                            style={{
-                                                marginLeft: "10px",
-                                            }}
+                                            style={imgError ? {
+                                                marginLeft: "10px",color: "#f3115e"
+                                            } : {marginLeft: "10px"} }
                                             className="img-name"
                                         >
                                             {cardImage !== ""

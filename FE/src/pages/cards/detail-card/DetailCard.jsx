@@ -20,7 +20,6 @@ function DetailCard(props) {
     const [card, setCard] = useState();
     const dispatch = useDispatch();
     const reactTym = useSelector((state) => state.reactReducer.listTym);
-    const commentStore = useSelector((state) => state.commentReducer.list);
     const [comment, setComment] = useState();
     const [cmtInput, setCmtInput] = useState("");
     const [cmtErr, setCmtErr] = useState(false);
@@ -36,7 +35,6 @@ function DetailCard(props) {
             const response = await api.get(`card/${path.id}`);
             const { data: dataSource } = response;
             setCard(dataSource);
-            console.log(dataSource.status)
             dispatch(addReact(dataSource.heart));
             const responseCmt = await api.get(`/comment/card/${path.id}`);
             setComment(responseCmt.data);
@@ -68,16 +66,22 @@ function DetailCard(props) {
     };
 
     const submitComment = () => {
-        console.log(cmtInput);
         let check = true;
+        let checkStatus = false 
         if (cmtInput === "") {
             setCmtErr(true);
             check = false;
         } else {
             setCmtErr(false);
         }
+        if(card?.status === 2){
+            check = false;
+            checkStatus = true
+        }else{
+            check = true
+        }
         if (!check) {
-            message.error("check form");
+            checkStatus ? message.error("item card is be delete") :message.error("check form");
         } else {
             api.post("/comment/add", {
                 comment: cmtInput,

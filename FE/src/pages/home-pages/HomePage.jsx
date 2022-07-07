@@ -71,7 +71,9 @@ function HomePage(props) {
 
     const covertDate = (day) => {
         const date = new Date(day);
-        const dateAt = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+        const dateAt = `${date.getDate()}/${
+            date.getMonth() + 1
+        }/${date.getFullYear()}`;
         return dateAt;
     };
 
@@ -112,17 +114,24 @@ function HomePage(props) {
     };
 
     const UploadfileAvatar = async (file) => {
+        let check = true;
         setAvatarType(file.type);
-        setCardAvatar(file.name);
         const formData = new FormData();
         // setAvatarType(file.type);
         formData.append("avatar", file);
         if (file.type !== "image/jpeg" && file.type !== "image/png") {
+            check = false;
             setAvatarError(true);
             notification.error({
                 message: "file upload failed",
                 description: "file type upload is .jpg or .png",
             });
+        } else {
+            check = true;
+            setAvatarError(false);
+        }
+        if (!check) {
+            setAvatarError(true);
         } else {
             await api
                 .post("/upload", formData)
@@ -135,17 +144,25 @@ function HomePage(props) {
                 .catch((err: ErrorType) => handleError(err));
         }
     };
-    // console.log(avatarType);
+    
     const UploadfileImg = async (file) => {
+        let check = true;
         const formData = new FormData();
         formData.append("avatar", file);
         // setCardImage(file.name);
         if (file.type !== "image/jpeg" && file.type !== "image/png") {
+            check = false;
             setImgError(true);
             notification.error({
                 message: "file upload failed",
                 description: "file type upload is .jpg or .png",
             });
+        } else {
+            check = false;
+            setImgError(false);
+        }
+        if (!check) {
+            setImgError(true);
         } else {
             await api
                 .post("/upload", formData)
@@ -496,11 +513,11 @@ function HomePage(props) {
                                         }}
                                     />
                                     <div className="img-title">
-                                        <div className="img-title-image"></div>
+                                        <div className={imgError ? "img-title-image-error" : "img-title-image"}></div>
                                         <div
-                                            style={{
-                                                marginLeft: "10px",
-                                            }}
+                                            style={imgError ? {
+                                                marginLeft: "10px",color: "#f3115e"
+                                            } : {marginLeft: "10px"} }
                                             className="img-name"
                                         >
                                             {cardImage !== ""
