@@ -10,7 +10,8 @@ const uploadRouter = require("./routes/upload");
 const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const _ = require("lodash");
+const http = require("http");
+const { Server } = require("socket.io");
 
 dotenv.config();
 const db =
@@ -36,6 +37,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(express.static("uploads"));
 
+const server = http.createServer(app);
+
 app.get("/", function (req, res) {
     res.send("Hello World");
 });
@@ -44,6 +47,26 @@ app.use("/api/card", cardRoute);
 app.use("/api/comment", commentRouter);
 app.use("/api/upload", uploadRouter);
 
-app.listen(port, () => {
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST", "PUT", "DELETE"],
+    },
+});
+
+io.on("connection", (socket) => {
+    console.log(`User Connected: ${socket.id}`);
+
+    socket.on("join_data", (data) => {
+        console.log(data)
+        socket.join(data);
+    });
+
+    // socket.on("send_message", (data) => {
+    //     socket.to(data.room).emit("receive_message", data);
+    // });
+});
+
+server.listen(port, () => {
     console.log(`BE server running is  ${port} `);
 });

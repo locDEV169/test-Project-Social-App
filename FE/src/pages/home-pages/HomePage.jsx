@@ -19,13 +19,15 @@ import { Link } from "react-router-dom";
 import { addListCard } from "../../actions/add";
 import { DeleteHobby } from "../../actions/type";
 import HeaderView from "../../components/header/HeaderView";
-import api, { URL_UPLOAD } from "../../constant";
+import api, { HOST, URL_UPLOAD } from "../../constant";
 import { ReactComponent as PenceilAlt } from "../../image/pencil-alt-solid.svg";
 import { ReactComponent as TrashAlt } from "../../image/trash-can-regular.svg";
 import ImgFail from "../../image/Image 1.png";
 import "./style.css";
 import NoContent from "../cards/no-content/NoContent";
 import { RevertCard } from "../../actions/revert";
+import io from "socket.io-client";
+import TextArea from "antd/lib/input/TextArea";
 
 function HomePage(props) {
     const [state, setState] = useState({ card: [] });
@@ -46,13 +48,17 @@ function HomePage(props) {
     const [avatarError, setAvatarError] = useState(false);
     const [avatarType, setAvatarType] = useState("");
     const [imgError, setImgError] = useState(false);
+    const socket = io.connect(`${HOST}`);
 
     useEffect(() => {
+        // socket.emit("connection");
         api.get(`/card`).then((res) => {
             setState({ card: res.data.data });
             dispatch(addListCard(res.data.data));
+            socket.emit("join_data", res.data.data);
         });
     }, []);
+
     const filterCard = card?.filter(
         (post) =>
             post.name?.includes(searchValue) ||
@@ -144,7 +150,7 @@ function HomePage(props) {
                 .catch((err: ErrorType) => handleError(err));
         }
     };
-    
+
     const UploadfileImg = async (file) => {
         let check = true;
         const formData = new FormData();
@@ -158,7 +164,7 @@ function HomePage(props) {
                 description: "file type upload is .jpg or .png",
             });
         } else {
-            check = false;
+            check = true;
             setImgError(false);
         }
         if (!check) {
@@ -243,7 +249,8 @@ function HomePage(props) {
             cardName === "" ||
             cardAvatar === "" ||
             cardDescription === "" ||
-            avatarError
+            avatarError ||
+            imgError
         ) {
             // console.log(cardName, cardAvatar, cardDescription, cardImage);
             message.error("check form");
@@ -290,7 +297,7 @@ function HomePage(props) {
                         filterCard.map((item) => (
                             <div className="detail-item">
                                 <div style={{ margin: "23px 30px" }}>
-                                    <Link to={``}>
+                                    <Link to="">
                                         <div className="info">
                                             <div className="left">
                                                 <img
@@ -308,6 +315,8 @@ function HomePage(props) {
                                                             {covertDate(
                                                                 item.createdAt
                                                             )}
+                                                            {"  "}
+                                                            (day create)
                                                         </div>
                                                     </Link>
                                                 </div>
@@ -362,18 +371,20 @@ function HomePage(props) {
                 <Dialog
                     open={openDiaLogEdit}
                     onClose={handleCloseEdit}
-                    aria-labelledby="alert-dialog-title"
+                    aria-labelledby="alert-dialog-title-edit"
                     aria-describedby="alert-dialog-description"
                     id="pop-up-edit"
                 >
-                    <DialogTitle id="alert-dialog-title">Edit item</DialogTitle>
+                    <DialogTitle id="alert-dialog-title-edit">
+                        Edit item
+                    </DialogTitle>
                     <DialogContent style={{ padding: "0px 45px" }}>
                         <form className="form-edit">
                             <div className="input-avatar">
                                 <Stack
                                     direction="row"
                                     alignItems="center"
-                                    spacing={7.5}
+                                    spacing={5.95}
                                 >
                                     <div
                                         style={
@@ -388,7 +399,7 @@ function HomePage(props) {
                                         className="fontSize16 displayFlex"
                                     >
                                         {" "}
-                                        Avatar <div className="error">*</div>:
+                                        Avatar <div className="error">*</div>
                                     </div>
                                     <label htmlFor="contained-button-file">
                                         <input
@@ -425,20 +436,20 @@ function HomePage(props) {
                                     </label>
                                 </Stack>
                             </div>
-                            <br />
+                            <div style={{ marginBottom: "18px" }}></div>
                             <div className="input-name displayFlex">
                                 <label
                                     style={
                                         nameError
                                             ? {
-                                                  marginRight: "65px",
+                                                  marginRight: "45px",
                                                   color: "#F3115E",
                                               }
-                                            : { marginRight: "65px" }
+                                            : { marginRight: "45px" }
                                     }
                                     className="fontSize16 displayFlex"
                                 >
-                                    Name <div className="error">*</div>:
+                                    Name <div className="error">*</div>
                                 </label>
                                 <input
                                     type="text"
@@ -452,30 +463,30 @@ function HomePage(props) {
                                     }
                                 />
                             </div>
-                            <br />
+                            <div style={{ marginBottom: "20px" }}></div>
                             <div className="input-description displayFlex">
                                 <label
                                     for="description"
                                     style={
                                         descriptionError
                                             ? {
-                                                  marginRight: "27px",
+                                                  marginRight: "7px",
                                                   color: "#F3115E",
                                               }
-                                            : { marginRight: "27px" }
+                                            : { marginRight: "7px" }
                                     }
                                     className="fontSize16 displayFlex"
                                 >
-                                    Description <div className="error">*</div>:
+                                    Description <div className="error">*</div>
                                 </label>
-                                <input
+                                <TextArea
                                     type="text-area"
                                     id={
                                         descriptionError
                                             ? "descriptionError"
                                             : "description"
                                     }
-                                    className="outline"
+                                    className="outline input-desc"
                                     name="description"
                                     value={
                                         cardDescription !== ""
@@ -488,17 +499,17 @@ function HomePage(props) {
                                     }
                                 />
                             </div>
-                            <br />
+                            <div style={{ marginBottom: "18px" }}></div>
                             <Stack
                                 direction="row"
                                 alignItems="center"
-                                spacing={2}
+                                spacing={6.85}
                             >
                                 <div
-                                    style={{ marginRight: "60px" }}
+                                    style={{ marginRight: "0px" }}
                                     className="fontSize16"
                                 >
-                                    Image:
+                                    Image
                                 </div>
                                 <label htmlFor="contained-button-file-image">
                                     <Input
@@ -513,11 +524,22 @@ function HomePage(props) {
                                         }}
                                     />
                                     <div className="img-title">
-                                        <div className={imgError ? "img-title-image-error" : "img-title-image"}></div>
                                         <div
-                                            style={imgError ? {
-                                                marginLeft: "10px",color: "#f3115e"
-                                            } : {marginLeft: "10px"} }
+                                            className={
+                                                imgError
+                                                    ? "img-title-image-error"
+                                                    : "img-title-image"
+                                            }
+                                        ></div>
+                                        <div
+                                            style={
+                                                imgError
+                                                    ? {
+                                                          marginLeft: "10px",
+                                                          color: "#f3115e",
+                                                      }
+                                                    : { marginLeft: "10px" }
+                                            }
                                             className="img-name"
                                         >
                                             {cardImage !== ""
@@ -531,7 +553,7 @@ function HomePage(props) {
                         <hr className="edit-dialog-lines" />
                     </DialogContent>
                     <DialogActions>
-                        <div className="btn-form-delete">
+                        <div className="btn-form-edit">
                             <Button
                                 onClick={handleEdit}
                                 style={{
@@ -540,15 +562,13 @@ function HomePage(props) {
                                 }}
                                 className="btn-dialog"
                             >
-                                Edit
+                                Save
                             </Button>
                             <Button
                                 onClick={handleCloseEdit}
                                 autoFocus
                                 style={{
                                     backgroundColor: "#D9D9D9",
-                                    width: "76px",
-                                    height: "43px",
                                 }}
                                 className="btn-dialog"
                             >
@@ -569,21 +589,25 @@ function popUpDelete(openDiaLog, handleClose, handleDelete) {
         <Dialog
             open={openDiaLog}
             onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
+            aria-labelledby="alert-dialog-title-delete"
             aria-describedby="alert-dialog-description"
             id="pop-up-delete"
         >
-            <DialogTitle id="alert-dialog-title">
+            <DialogTitle
+                id="alert-dialog-title-delete"
+                style={{ marginBottom: "-2px" }}
+            >
                 Your about to delete a item
             </DialogTitle>
-            <DialogContent>
+
+            <DialogContent className="center-delete">
                 <div className="delete-dialog-center">
                     {trashIcon()}
                     <div className="delete-dialog-center-text">
                         This will delete your item form list Are you sure?
                     </div>
                 </div>
-                <hr className="delete-dialog-lines" />
+                <div className="delete-dialog-lines" />
             </DialogContent>
             <DialogActions style={{ paddingTop: "0px !important" }}>
                 <div className="btn-form-delete">

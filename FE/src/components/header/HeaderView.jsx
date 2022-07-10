@@ -22,9 +22,9 @@ import { addListCard } from "../../actions/add";
 import { RevertCard } from "../../actions/revert";
 import { DeleteHobby } from "../../actions/type";
 import { SearchCard } from "../../actions/search";
+import TextArea from "antd/lib/input/TextArea";
 
 function HeaderView(props) {
-    const [state, setState] = useState({ card: [] });
     const dispatch = useDispatch();
     const valueRevert = useSelector((state) => state.cardReducer.idRevert);
     const [openDiaLog, setOpenDiaLog] = useState(false);
@@ -93,7 +93,7 @@ function HeaderView(props) {
                 .catch((err: ErrorType) => handleError(err));
         }
     };
-    
+
     const UploadfileImg = async (file) => {
         let check = true;
         const formData = new FormData();
@@ -127,7 +127,7 @@ function HeaderView(props) {
 
     const getData = async () => {
         await api.get(`/card`).then((res) => {
-            setState({ card: res.data.data });
+            // setState({ card: res.data.data });
             dispatch(addListCard(res.data.data));
         });
     };
@@ -251,7 +251,7 @@ function HeaderView(props) {
                     style={{ backgroundColor: "#064EBC" }}
                     onClick={() => setOpenDiaLog(!openDiaLog)}
                 >
-                    Add
+                    Add New
                 </Button>
                 <Dialog
                     open={openDiaLog}
@@ -269,7 +269,7 @@ function HeaderView(props) {
                                 <Stack
                                     direction="row"
                                     alignItems="center"
-                                    spacing={7.5}
+                                    spacing={5.95}
                                 >
                                     <div
                                         style={
@@ -284,7 +284,7 @@ function HeaderView(props) {
                                         className="fontSize16 displayFlex"
                                     >
                                         {" "}
-                                        Avatar <div className="error">*</div>:
+                                        Avatar <div className="error" style={{marginLeft: "5px"}}>*</div>
                                     </div>
                                     <label htmlFor="contained-button-file">
                                         <input
@@ -327,20 +327,22 @@ function HeaderView(props) {
                                     </label>
                                 </Stack>
                             </div>
-                            <br />
+                            <div
+                                style={{ marginBottom: "18px" }}
+                            ></div>
                             <div className="input-name displayFlex">
                                 <label
                                     style={
                                         nameError
                                             ? {
-                                                  marginRight: "65px",
+                                                  marginRight: "45px",
                                                   color: "#F3115E",
                                               }
-                                            : { marginRight: "65px" }
+                                            : { marginRight: "45px" }
                                     }
                                     className="fontSize16 displayFlex"
                                 >
-                                    Name <div className="error">*</div>:
+                                    Name <div className="error" style={{marginLeft: "5px"}}>*</div>
                                 </label>
                                 <input
                                     type="text"
@@ -353,30 +355,32 @@ function HeaderView(props) {
                                     }
                                 />
                             </div>
-                            <br />
+                            <div
+                                style={{ marginBottom: "20px" }}
+                            ></div>
                             <div className="input-description displayFlex">
                                 <label
                                     for="description"
                                     style={
                                         descriptionError
                                             ? {
-                                                  marginRight: "27px",
+                                                  marginRight: "7px",
                                                   color: "#F3115E",
                                               }
-                                            : { marginRight: "27px" }
+                                            : { marginRight: "7px" }
                                     }
                                     className="fontSize16 displayFlex"
                                 >
-                                    Description <div className="error">*</div>:
+                                    Description <div className="error" style={{marginLeft: "5px"}}>*</div>
                                 </label>
-                                <input
+                                <TextArea
                                     type="text-area"
                                     id={
                                         descriptionError
                                             ? "descriptionError"
                                             : "description"
                                     }
-                                    className="outline"
+                                    className="outline input-desc"
                                     name="description"
                                     value={
                                         cardDescription !== ""
@@ -388,17 +392,19 @@ function HeaderView(props) {
                                     }
                                 />
                             </div>
-                            <br />
+                            <div
+                                style={{ marginBottom: "18px" }}
+                            ></div>
                             <Stack
                                 direction="row"
                                 alignItems="center"
-                                spacing={2}
+                                spacing={6.85}
                             >
                                 <div
-                                    style={{ marginRight: "60px" }}
+                                    style={{ marginRight: "0px" }}
                                     className="fontSize16"
                                 >
-                                    Image:
+                                    Image
                                 </div>
                                 <label htmlFor="contained-button-file-image">
                                     <Input
@@ -413,11 +419,22 @@ function HeaderView(props) {
                                         }}
                                     />
                                     <div className="img-title">
-                                        <div className={imgError ? "img-title-image-error" : "img-title-image"}></div>
                                         <div
-                                            style={imgError ? {
-                                                marginLeft: "10px",color: "#f3115e"
-                                            } : {marginLeft: "10px"} }
+                                            className={
+                                                imgError
+                                                    ? "img-title-image-error"
+                                                    : "img-title-image"
+                                            }
+                                        ></div>
+                                        <div
+                                            style={
+                                                imgError
+                                                    ? {
+                                                          marginLeft: "10px",
+                                                          color: "#f3115e",
+                                                      }
+                                                    : { marginLeft: "10px" }
+                                            }
                                             className="img-name"
                                         >
                                             {cardImage !== ""
@@ -441,7 +458,7 @@ function HeaderView(props) {
                                 }}
                                 className="btn-dialog"
                             >
-                                Add
+                                Save
                             </Button>
                             <Button
                                 onClick={handleClose}
